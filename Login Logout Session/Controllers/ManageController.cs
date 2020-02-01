@@ -129,6 +129,21 @@ namespace Login_Logout_Session.Controllers
             }
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
+
+        //
+        // POST: /Manage/EnableTwoFactorAuthentication
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EnableTwoFactorAuthentication()
+        {
+            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            }
+            return RedirectToAction("Index", "Manage");
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
