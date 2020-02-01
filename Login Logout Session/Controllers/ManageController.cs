@@ -243,6 +243,13 @@ namespace Login_Logout_Session.Controllers
             AddErrors(result);
             return View(model);
         }
+
+        //
+        // GET: /Manage/SetPassword
+        public ActionResult SetPassword()
+        {
+            return View();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
