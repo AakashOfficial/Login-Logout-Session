@@ -159,6 +159,15 @@ namespace Login_Logout_Session.Controllers
             }
             return RedirectToAction("Index", "Manage");
         }
+
+        //
+        // GET: /Manage/VerifyPhoneNumber
+        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
+        {
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
+            // Send an SMS through the SMS provider to verify the phone number
+            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
