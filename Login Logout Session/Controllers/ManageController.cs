@@ -168,6 +168,50 @@ namespace Login_Logout_Session.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
+
+        //
+        // POST: /Manage/VerifyPhoneNumber
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+            }
+            // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("", "Failed to verify phone");
+            return View(model);
+        }
+
+        //
+        // POST: /Manage/RemovePhoneNumber
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RemovePhoneNumber()
+        {
+            var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
+            if (!result.Succeeded)
+            {
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+            }
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            }
+            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
