@@ -98,6 +98,13 @@ namespace Login_Logout_Session.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
+
+        //
+        // GET: /Manage/AddPhoneNumber
+        public ActionResult AddPhoneNumber()
+        {
+            return View();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
