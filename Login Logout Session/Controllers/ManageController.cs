@@ -144,6 +144,21 @@ namespace Login_Logout_Session.Controllers
             }
             return RedirectToAction("Index", "Manage");
         }
+
+        //
+        // POST: /Manage/DisableTwoFactorAuthentication
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DisableTwoFactorAuthentication()
+        {
+            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            }
+            return RedirectToAction("Index", "Manage");
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
