@@ -40,6 +40,18 @@ namespace Login_Logout_Session.Controllers
             }
         }
 
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins
