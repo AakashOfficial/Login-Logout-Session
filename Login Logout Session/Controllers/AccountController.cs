@@ -262,6 +262,14 @@ namespace Login_Logout_Session.Controllers
             AddErrors(result);
             return View();
         }
+
+        //
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
