@@ -102,3 +102,4 @@ D:\Learning\Projects\C#\Login Logout Session\Login Logout Session\obj\Debug\Logi
 D:\Learning\Projects\C#\Login Logout Session\Login Logout Session\obj\Debug\Login Logout Session.csproj.CopyComplete
 D:\Learning\Projects\C#\Login Logout Session\Login Logout Session\obj\Debug\Login Logout Session.dll
 D:\Learning\Projects\C#\Login Logout Session\Login Logout Session\obj\Debug\Login Logout Session.pdb
+D:\Learning\Projects\C#\Login Logout Session\Login Logout Session\obj\Debug\Login Logout Session.csprojAssemblyReference.cache
