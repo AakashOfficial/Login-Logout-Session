@@ -133,6 +133,14 @@ namespace Login_Logout_Session.Controllers
                     return View(model);
             }
         }
+
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
